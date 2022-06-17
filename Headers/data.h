@@ -5,11 +5,11 @@
 
 //ground surafce vertex points
 std::vector<float> floorVertexArray = {
-    //positions         colors												textures    Normals
-    -0.5f, -0.5f, 0.0f,	170.0f / 255.0f, 185.0f / 255.0f, 207.0f / 255.0f,	0.0f, 0.0f,	0.0f, 0.0f, 1.0f,
-    -0.5f, 0.5f, 0.0f,	170.0f / 255.0f, 185.0f / 255.0f, 207.0f / 255.0f,	0.0f, 1.0f,	0.0f, 0.0f, 1.0f,
-    0.5f, 0.5f, 0.0f,	170.0f / 255.0f, 185.0f / 255.0f, 207.0f / 255.0f,	1.0f, 1.0f,	0.0f, 0.0f, 1.0f,
-    0.5f, -0.5f, 0.0f,	170.0f / 255.0f, 185.0f / 255.0f, 207.0f / 255.0f,	1.0f, 0.0f,	0.0f, 0.0f, 1.0f,
+    //positions         colors 											textures    Normals
+    -0.5f, -0.5f, 0.0f,	73.0f / 255.0f, 73.0f / 255.0f, 71.0f / 255.0f,	0.0f, 0.0f,	0.0f, 0.0f, 1.0f,
+    -0.5f, 0.5f, 0.0f,	73.0f / 255.0f, 73.0f / 255.0f, 71.0f / 255.0f,	0.0f, 1.0f,	0.0f, 0.0f, 1.0f,
+    0.5f, 0.5f, 0.0f,	73.0f / 255.0f, 73.0f / 255.0f, 71.0f / 255.0f,	1.0f, 1.0f,	0.0f, 0.0f, 1.0f,
+    0.5f, -0.5f, 0.0f,	73.0f / 255.0f, 73.0f / 255.0f, 71.0f / 255.0f,	1.0f, 0.0f,	0.0f, 0.0f, 1.0f,
 };
 
 std::vector<unsigned int> floorVertexLayout = { 3, 3, 2, 3 };
@@ -23,7 +23,7 @@ std::vector<unsigned int> floorIndexes = {
 std::vector<glm::vec3> floorVertexInstances;
 
 std::vector<glm::vec3>& getFloorVertexInstances() {
-    int gridSize = 10;
+    int gridSize = 100;
     int totalTiles = (int) (pow(gridSize, 2.0) + 0.5);
 
     //We create the 100 x 100 grid here to avoid calling the draw-call many times. This will boost performance	

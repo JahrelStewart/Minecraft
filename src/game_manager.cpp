@@ -11,6 +11,8 @@ unsigned int GameManager::SCREENWIDTH = 1920;
 unsigned int GameManager::SCREENHEIGHT = 1080;
 float GameManager::deltaTime = 0.0f;
 float GameManager::lastFrame = 0.0f;
+float GameManager::lastXpos = GameManager::SCREENWIDTH / 2.0;
+float GameManager::lastYpos = GameManager::SCREENHEIGHT / 2.0;
 GLFWwindow* GameManager::window = NULL;
 Camera* GameManager::camera = new Camera(GameManager::SCREENWIDTH, GameManager::SCREENHEIGHT);
 
@@ -51,7 +53,12 @@ void GameManager::framebuffer_size_callback(GLFWwindow* window, int width, int h
 }
 
 void GameManager::getMouseInputs(GLFWwindow* window, double x, double y) {
-    GameManager::camera->updateMouseInput(0.2f, x, y);
+    float xOffset = x - GameManager::lastXpos;
+    float yOffset = GameManager::lastYpos - y; // reversed since y-coordinates range from bottom to top
+    GameManager::lastXpos = x;
+    GameManager::lastYpos = y;
+
+    GameManager::camera->updateMouseInput(GameManager::deltaTime, xOffset, yOffset);
 }
 
 void GameManager::handleKeyboardInputs() {
@@ -69,6 +76,19 @@ void GameManager::handleKeyboardInputs() {
 
     if (glfwGetKey(GameManager::getWindow(), GLFW_KEY_D) == GLFW_PRESS)
         GameManager::camera->updateKeyboardInput(GameManager::deltaTime, 3);
+
+    //Render Modes:
+    if (glfwGetKey(window, GLFW_KEY_P) == GLFW_PRESS) {
+        glPolygonMode(GL_FRONT_AND_BACK, GL_POINT);
+    }
+
+    if (glfwGetKey(window, GLFW_KEY_L) == GLFW_PRESS) {
+        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    }
+
+    if (glfwGetKey(window, GLFW_KEY_O) == GLFW_PRESS) {
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+    }
 }
 
 void GameManager::init() {
@@ -95,6 +115,7 @@ void GameManager::init() {
     }
 
     glfwSetFramebufferSizeCallback(GameManager::window, framebuffer_size_callback);
+    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     glfwSetCursorPosCallback(GameManager::window, getMouseInputs);
     // glfwSetKeyCallback(GameManager::window, key_callback);
     glEnable(GL_DEPTH_TEST);
@@ -109,7 +130,7 @@ void GameManager::startFrame() {
     GameManager::lastFrame = currentTime;
 
     // background color
-    glClearColor((float) 241 / 255, (float) 250 / 255, (float) 238 / 255, 1.0f);
+    glClearColor((float) 39 / 255, (float) 41 / 255, (float) 50 / 255, 1.0f);
 
     // reset viewport
     glViewport(0, 0, GameManager::getScreenWidth(), GameManager::getScreenHeight());

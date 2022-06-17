@@ -12,13 +12,6 @@ int main() {
     Object cube(cubeVertexArray, cubeVertexLayout, nullptr, &cubeIndexes, "Resources/Textures/cubeTexture.png");
 
     while (!glfwWindowShouldClose(GameManager::getWindow())) {
-//-----------------------------------------------------------------------------------------------------------------------------------
-        // 1. First Pass: render depth of scene to texture (from light's perspective)
-
-
-//------------------------------------------------------------------------------------------------------------------------------------------
-        // 2. Second Pass: render scene as normal using the generated depth/shadow map  
-
         GameManager::startFrame();
 
         floor.draw(floorShaderProgram, GameManager::getCamera());

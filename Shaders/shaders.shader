@@ -41,7 +41,7 @@ uniform mat4 u_Model_View_Projection;
 uniform mat4 u_Model;
 
 void main() {
-	vertexColor = vec3(83.0/255.0, 152.0/255.0, 190.0/255.0);
+	vertexColor = vec3(114.0/255.0, 76.0/255.0, 249.0/255.0);
 	TexCoord = cubeTexCoord;
 	Normal = mat3(transpose(inverse(u_Model))) * cubeNormals;
 	objPos = vec3(u_Model * vec4(aCubePos, 1.0));

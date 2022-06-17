@@ -101,7 +101,7 @@ void Object::draw(int shaderProgram, Camera* camera) {
     glUniformMatrix4fv(model_location, 1, GL_FALSE, glm::value_ptr(model));
     glUniformMatrix4fv(model_location_MVP, 1, GL_FALSE, glm::value_ptr(transformation_result));
 
-    glLineWidth(1.0f);
+    glLineWidth(2.0f);
 
     glUniform1i(texture_location, 0);
     glBindTexture(GL_TEXTURE_2D, this->texture.ID);
@@ -109,7 +109,11 @@ void Object::draw(int shaderProgram, Camera* camera) {
     this->VAO->bind();
 
     if (this->instances != nullptr) {
-        glDrawElementsInstanced(GL_TRIANGLES, this->indexes->size(), GL_UNSIGNED_INT, nullptr, this->instances->size());
+        //to display floor as a plane:
+        // glDrawElementsInstanced(GL_TRIANGLES, this->indexes->size(), GL_UNSIGNED_INT, nullptr, this->instances->size());
+
+        //to display floor as a grid:
+        glDrawElementsInstanced(GL_LINE_LOOP, this->indexes->size(), GL_UNSIGNED_INT, nullptr, this->instances->size());
     }
     else {
         glDrawElements(GL_TRIANGLES, this->indexes->size(), GL_UNSIGNED_INT, nullptr);

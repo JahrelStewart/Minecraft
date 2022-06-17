@@ -32,5 +32,5 @@ private:
     static unsigned int SCREENHEIGHT;
     static float deltaTime;	// Time between current frame and last frame
     static float lastFrame; // Time of last frame
-
+    static float lastXpos, lastYpos; //last mouse X & Y screen positions    
 };

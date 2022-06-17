@@ -44,9 +44,9 @@ private:
     glm::vec3 worldUp;
 
     float zoom;
-    float pitch; //movement(i.e. the angle) around the y axis 
-    float yaw; //movement(i.e. the angle) along the x axis 
-    float roll;  //movement(i.e. the angle) along the z axis 
+    float pitch; //movement(i.e. the angle) around the x axis 
+    float yaw; //movement(i.e. the angle) around the y axis 
+    float roll;  //movement(i.e. the angle) around the z axis 
     float lookSensitivity;
     float moveSensitivity;
 
