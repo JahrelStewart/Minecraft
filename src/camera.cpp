@@ -6,7 +6,7 @@ Camera::Camera(unsigned int screenWidth, unsigned int screenHeight) {
     this->pitch = 0.0f;
     this->yaw = -90.0f;
     this->roll = 0.0f;
-    this->moveSensitivity = 20.0f;
+    this->moveSensitivity = 25.0f;
     this->lookSensitivity = 7.0f;
 
     this->position = glm::vec3(0.0f, 5.0f, 25.0f);
@@ -60,8 +60,8 @@ float Camera::getZoom() {
 void Camera::setZoom(float x) {
     this->zoom = x;
 }
-glm::mat4 Camera::getView() {
-    this->updateCameraVectors();
+glm::mat4 Camera::getView(const float dt) {
+    this->updateCameraVectors(dt);
     this->view = glm::lookAt(this->position, this->position + this->target, this->up);
     return this->view;
 }
@@ -75,7 +75,7 @@ void Camera::setProjection(glm::mat4 x) {
     this->projection = x;
 }
 
-void Camera::updateMouseInput(const float dt, const double x, const double y) {
+void Camera::rotate(const float dt, const double x, const double y) {
     float speed = this->lookSensitivity * dt;
 
     this->pitch += static_cast<float>(y) * speed;
@@ -84,7 +84,7 @@ void Camera::updateMouseInput(const float dt, const double x, const double y) {
     this->pitch = std::min(std::max(this->pitch, -89.0f), 89.0f);
 }
 
-void Camera::updateKeyboardInput(const float dt, const int direction) {
+void Camera::translate(const float dt, const int direction) {
     float speed = this->moveSensitivity * dt;
 
     switch (direction) {
@@ -109,10 +109,12 @@ void Camera::updateKeyboardInput(const float dt, const int direction) {
     }
 }
 
-void Camera::updateCameraVectors() {
-    this->target.x = cos(glm::radians(this->yaw)) * cos(glm::radians(this->pitch));
-    this->target.y = sin(glm::radians(this->pitch));
-    this->target.z = sin(glm::radians(this->yaw)) * cos(glm::radians(this->pitch));
+void Camera::updateCameraVectors(const float dt) {
+    //added camera rotation smoothness using LERP
+    float smoothedStep = 20.0f * dt;
+    this->target.x = std::lerp(this->target.x, cos(glm::radians(this->yaw)) * cos(glm::radians(this->pitch)), smoothedStep);
+    this->target.y = std::lerp(this->target.y, sin(glm::radians(this->pitch)), smoothedStep);
+    this->target.z = std::lerp(this->target.z, sin(glm::radians(this->yaw)) * cos(glm::radians(this->pitch)), smoothedStep);
 
     this->right = glm::normalize(glm::cross(this->up, this->target));
     this->target = glm::normalize(this->target);

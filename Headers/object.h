@@ -7,7 +7,7 @@ public:
     Object(std::vector<float> vertices, std::vector<unsigned int> layout, std::vector<glm::vec3>* instances = nullptr, std::vector<unsigned int>* indexes = nullptr, const char* textureFilePath = nullptr);
     ~Object();
 
-    void draw(int shaderProgram, Camera* camera);
+    void draw(int shaderProgram, Camera* camera, const float dt);
 
 private:
     VertexArray* VAO;

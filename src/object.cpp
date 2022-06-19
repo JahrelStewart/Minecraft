@@ -85,7 +85,7 @@ void Object::setupVIndex() {
     this->VAO->unbind();
 }
 
-void Object::draw(int shaderProgram, Camera* camera) {
+void Object::draw(int shaderProgram, Camera* camera, const float dt) {
 
     //calculate model matrix : the transform of the object
     glm::mat4 model = glm::rotate(glm::mat4(1.0f), glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f)); //Rotate grid 90 degrees so that it lays flat on the XZ plane
@@ -97,7 +97,7 @@ void Object::draw(int shaderProgram, Camera* camera) {
     int texture_location = glGetUniformLocation(shaderProgram, "customTexture");
 
     //calculate MVP matrix
-    glm::mat4 transformation_result = camera->getProjection() * camera->getView() * model;
+    glm::mat4 transformation_result = camera->getProjection() * camera->getView(dt) * model;
     glUniformMatrix4fv(model_location, 1, GL_FALSE, glm::value_ptr(model));
     glUniformMatrix4fv(model_location_MVP, 1, GL_FALSE, glm::value_ptr(transformation_result));
 

@@ -30,6 +30,10 @@ void GameManager::setScreenHeight(int x) {
     GameManager::SCREENHEIGHT = x;
 }
 
+float GameManager::getDeltaTime() {
+    return GameManager::deltaTime;
+}
+
 GLFWwindow* GameManager::getWindow() {
     return GameManager::window;
 }
@@ -54,11 +58,11 @@ void GameManager::framebuffer_size_callback(GLFWwindow* window, int width, int h
 
 void GameManager::getMouseInputs(GLFWwindow* window, double x, double y) {
     float xOffset = x - GameManager::lastXpos;
-    float yOffset = GameManager::lastYpos - y; // reversed since y-coordinates range from bottom to top
+    float yOffset = GameManager::lastYpos - y;
     GameManager::lastXpos = x;
     GameManager::lastYpos = y;
 
-    GameManager::camera->updateMouseInput(GameManager::deltaTime, xOffset, yOffset);
+    GameManager::camera->rotate(GameManager::deltaTime, xOffset, yOffset);
 }
 
 void GameManager::handleKeyboardInputs() {
@@ -66,16 +70,16 @@ void GameManager::handleKeyboardInputs() {
         glfwSetWindowShouldClose(GameManager::getWindow(), true);
 
     if (glfwGetKey(GameManager::getWindow(), GLFW_KEY_W) == GLFW_PRESS)
-        GameManager::camera->updateKeyboardInput(GameManager::deltaTime, 0);
+        GameManager::camera->translate(GameManager::deltaTime, 0);
 
     if (glfwGetKey(GameManager::getWindow(), GLFW_KEY_A) == GLFW_PRESS)
-        GameManager::camera->updateKeyboardInput(GameManager::deltaTime, 2);
+        GameManager::camera->translate(GameManager::deltaTime, 2);
 
     if (glfwGetKey(GameManager::getWindow(), GLFW_KEY_S) == GLFW_PRESS)
-        GameManager::camera->updateKeyboardInput(GameManager::deltaTime, 1);
+        GameManager::camera->translate(GameManager::deltaTime, 1);
 
     if (glfwGetKey(GameManager::getWindow(), GLFW_KEY_D) == GLFW_PRESS)
-        GameManager::camera->updateKeyboardInput(GameManager::deltaTime, 3);
+        GameManager::camera->translate(GameManager::deltaTime, 3);
 
     //Render Modes:
     if (glfwGetKey(window, GLFW_KEY_P) == GLFW_PRESS) {
@@ -104,6 +108,7 @@ void GameManager::init() {
         glfwTerminate();
         exit(1);
     }
+
     glfwMakeContextCurrent(GameManager::window);
 
     // Initialize GLEW
@@ -114,8 +119,10 @@ void GameManager::init() {
         exit(1);
     }
 
+    glfwSwapInterval(0); //turns off vsync
     glfwSetFramebufferSizeCallback(GameManager::window, framebuffer_size_callback);
-    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    glfwSetInputMode(GameManager::window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    glfwSetInputMode(GameManager::window, GLFW_RAW_MOUSE_MOTION, GLFW_TRUE);
     glfwSetCursorPosCallback(GameManager::window, getMouseInputs);
     // glfwSetKeyCallback(GameManager::window, key_callback);
     glEnable(GL_DEPTH_TEST);

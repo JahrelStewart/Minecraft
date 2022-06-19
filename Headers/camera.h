@@ -27,13 +27,13 @@ public:
     void setRight(glm::vec3 x);
     float getZoom();
     void setZoom(float x);
-    glm::mat4 getView();
+    glm::mat4 getView(const float dt);
     void setView(glm::mat4 x);
     glm::mat4 getProjection();
     void setProjection(glm::mat4 x);
 
-    void updateMouseInput(const float dt, const double x, const double y);
-    void updateKeyboardInput(const float dt, const int direction);
+    void rotate(const float dt, const double x, const double y);
+    void translate(const float dt, const int direction);
 
 private:
     glm::vec3 position;
@@ -55,5 +55,5 @@ private:
     //projection matrix
     glm::mat4 projection;
 
-    void updateCameraVectors();
+    void updateCameraVectors(const float dt);
 };

@@ -14,8 +14,8 @@ int main() {
     while (!glfwWindowShouldClose(GameManager::getWindow())) {
         GameManager::startFrame();
 
-        floor.draw(floorShaderProgram, GameManager::getCamera());
-        cube.draw(cubeShaderProgram, GameManager::getCamera());
+        floor.draw(floorShaderProgram, GameManager::getCamera(), GameManager::getDeltaTime());
+        cube.draw(cubeShaderProgram, GameManager::getCamera(), GameManager::getDeltaTime());
 
         GameManager::endFrame();
 

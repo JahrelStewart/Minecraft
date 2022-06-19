@@ -13,6 +13,7 @@ public:
     static void setScreenWidth(int x);
     static unsigned int getScreenHeight();
     static void setScreenHeight(int x);
+    static float getDeltaTime();
     static GLFWwindow* getWindow();
     static Camera* getCamera();
     static void setCamera(Camera& x);
