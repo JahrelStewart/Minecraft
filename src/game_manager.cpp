@@ -137,9 +137,10 @@ void GameManager::startFrame() {
     GameManager::lastFrame = currentTime;
 
     // background color
-    glClearColor((float) 39 / 255, (float) 41 / 255, (float) 50 / 255, 1.0f);
+    // glClearColor((float) 39 / 255, (float) 41 / 255, (float) 50 / 255, 1.0f);
+    glClearColor((float) 162 / 255, (float) 210 / 255, (float) 255 / 255, 1.0f);
 
-    // reset viewport
+// reset viewport
     glViewport(0, 0, GameManager::getScreenWidth(), GameManager::getScreenHeight());
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }

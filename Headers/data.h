@@ -49,63 +49,47 @@ std::vector<glm::vec3>& getFloorVertexInstances() {
 //Cube Data
 
 std::vector<float> cubeVertexArray = {
-    //positions			//textures  //Normals        
-    //Back Face
-    -2.0f, -2.0f, -2.0f, 0.0f, 0.0f, 0.0f, 0.0f, -1.0f, //0
-     2.0f, -2.0f, -2.0f, 1.0f, 0.0f, 0.0f, 0.0f, -1.0f, //1
-     2.0f,  2.0f, -2.0f, 1.0f, 1.0f, 0.0f, 0.0f, -1.0f, //2    
-    -2.0f,  2.0f, -2.0f, 0.0f, 1.0f, 0.0f, 0.0f, -1.0f, //3   
+    //positions			//textures         //Normals        
 
-    //Front Face
-    -2.0f, -2.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f,   //4
-     2.0f, -2.0f, 2.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f,   //5
-     2.0f,  2.0f, 2.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f,   //6        
-    -2.0f,  2.0f, 2.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f,   //7
-
-    //Left Face
-    -2.0f,  2.0f,  2.0f, 1.0f, 1.0f, -1.0f, 0.0f, 0.0f, //8
-    -2.0f,  2.0f, -2.0f, 0.0f, 1.0f, -1.0f, 0.0f, 0.0f, //9
-    -2.0f, -2.0f, -2.0f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f, //10    
-    -2.0f, -2.0f,  2.0f, 1.0f, 0.0f, -1.0f, 0.0f, 0.0f, //11
-
-    //Right Face
-     2.0f,  2.0f,  2.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,  //12
-     2.0f,  2.0f, -2.0f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f,  //13
-     2.0f, -2.0f, -2.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f,  //14     
-     2.0f, -2.0f,  2.0f, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f,  //15
-
-    // Bottom Face
-    -2.0f, -2.0f, -2.0f, 0.0f, 1.0f, 0.0f, -1.0f, 0.0f, //16
-     2.0f, -2.0f, -2.0f, 1.0f, 1.0f, 0.0f, -1.0f, 0.0f, //17
-     2.0f, -2.0f,  2.0f, 1.0f, 0.0f, 0.0f, -1.0f, 0.0f, //18     
-    -2.0f, -2.0f,  2.0f, 0.0f, 0.0f, 0.0f, -1.0f, 0.0f, //19
-
-    //Top Face
-    -2.0f, 2.0f, -2.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f,   //20
-     2.0f, 2.0f, -2.0f, 1.0f, 1.0f, 0.0f, 1.0f, 0.0f,   //21
-     2.0f, 2.0f,  2.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f,   //22     
-    -2.0f, 2.0f,  2.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f,   //23
+    -1.0f, -1.0f, 1.0f,  0.0f, 0.0f, 1.0f, //0
+     1.0f, -1.0f, 1.0f,  1.0f, 0.0f, 1.0f, //1        7--------6
+     1.0f, -1.0f, -1.0f, 1.0f, 0.0f, 0.0f, //2       /|       /|
+    -1.0f, -1.0f, -1.0f, 0.0f, 0.0f, 0.0f, //3      4--------5 | 
+    -1.0f, 1.0f, 1.0f,   0.0f, 1.0f, 1.0f, //4  =>  | |      | |
+     1.0f, 1.0f, 1.0f,   1.0f, 1.0f, 1.0f, //5      | 3------|-2
+     1.0f, 1.0f, -1.0f,  1.0f, 1.0f, 0.0f, //6      |/       |/
+    -1.0f, 1.0f, -1.0f,  0.0f, 1.0f, 0.0f, //7      0--------1  
 };
 
-std::vector<unsigned int> cubeVertexLayout = { 3, 2, 3 };
+std::vector<unsigned int> cubeVertexLayout = { 3, 3 };
 
 //creating indexes for index buffer to avoid dupilicate vertices when creating a cube
 std::vector<unsigned int> cubeIndexes = {
-    0, 1, 2, //Back Face
-    2, 3, 0,
+    1, 2, 6, //Right Face
+    6, 5, 1,
 
-    4, 5, 6, //Front Face
+    0, 4, 7, //Left Face
+    7, 3, 0,
+
+    4, 5, 6, //Top Face
     6, 7, 4,
 
-    8, 9, 10, //Left Face
-    10, 11, 8,
+    0, 3, 2, //Bottom Face
+    2, 1, 0,
 
-    12, 13, 14, //Right Face
-    14, 15, 12,
+    0, 1, 5, // Back Face
+    5, 4, 0,
 
-    16, 17, 18, // Bottom Face
-    18, 19, 16,
+    3, 7, 6, // Front Face
+    6, 2, 3,
+};
 
-    20, 21, 22, // Top Face
-    22, 23, 20
+//cubemap images for block
+std::vector<std::string> cubeMapFaces = {
+    "Resources/Textures/Block/right.jpg",
+    "Resources/Textures/Block/left.jpg",
+    "Resources/Textures/Block/top.jpg",
+    "Resources/Textures/Block/bottom.jpg",
+    "Resources/Textures/Block/front.jpg",
+    "Resources/Textures/Block/back.jpg",
 };

@@ -4,23 +4,26 @@ Shaders readShaders(const std::string& file) {
     std::ifstream stream(file);
 
     enum class whichShader {
-        EMPTY = -1, FLOORVERTEXSHADER, CUBEVERTEXSHADER, FRAGMENTSHADER
+        EMPTY = -1, FLOORVERTEXSHADER, FlOORFRAGMENTSHADER, CUBEVERTEXSHADER, CUBEFRAGMENTSHADER
     };
 
-    std::stringstream shaderStream[3];
+    std::stringstream shaderStream[4];
     std::string line;
     whichShader which = whichShader::EMPTY;
 
     while (getline(stream, line)) {
         if (line.find("#shader") != std::string::npos) {
-            if (line.find("GridVertexShader") != std::string::npos) {
+            if (line.find("FloorVertexShader") != std::string::npos) {
                 which = whichShader::FLOORVERTEXSHADER;
+            }
+            else if (line.find("FloorFragmentShader") != std::string::npos) {
+                which = whichShader::FlOORFRAGMENTSHADER;
             }
             else if (line.find("CubeVertexShader") != std::string::npos) {
                 which = whichShader::CUBEVERTEXSHADER;
             }
-            else if (line.find("GridFragmentShader") != std::string::npos) {
-                which = whichShader::FRAGMENTSHADER;
+            else if (line.find("CubeFragmentShader") != std::string::npos) {
+                which = whichShader::CUBEFRAGMENTSHADER;
             }
         }
         else {
@@ -30,7 +33,7 @@ Shaders readShaders(const std::string& file) {
         }
     }
 
-    return { shaderStream[0].str(), shaderStream[1].str(), shaderStream[2].str() };
+    return { shaderStream[0].str(), shaderStream[1].str(), shaderStream[2].str(), shaderStream[3].str() };
 }
 
 //Function gets the shaders and determine if they can be compiled properly

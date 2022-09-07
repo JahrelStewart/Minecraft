@@ -6,7 +6,7 @@ Camera::Camera(unsigned int screenWidth, unsigned int screenHeight) {
     this->pitch = 0.0f;
     this->yaw = -90.0f;
     this->roll = 0.0f;
-    this->moveSensitivity = 25.0f;
+    this->moveSensitivity = 15.0f;
     this->lookSensitivity = 7.0f;
 
     this->position = glm::vec3(0.0f, 5.0f, 25.0f);

@@ -5,16 +5,16 @@ int main() {
     GameManager::init();
 
     Shaders shader = readShaders("Shaders/shaders.shader");
-    int floorShaderProgram = compileAndLinkShaders(shader.FloorVertexShader, shader.FragmentShader, nullptr);
-    int cubeShaderProgram = compileAndLinkShaders(shader.CubeVertexShader, shader.FragmentShader, nullptr);
+    // int floorShaderProgram = compileAndLinkShaders(shader.FloorVertexShader, shader.FloorFragmentShader, nullptr);
+    int cubeShaderProgram = compileAndLinkShaders(shader.CubeVertexShader, shader.CubeFragmentShader, nullptr);
 
-    Object floor(floorVertexArray, floorVertexLayout, &getFloorVertexInstances(), &floorIndexes, "Resources/Textures/tileTexture.png");
-    Object cube(cubeVertexArray, cubeVertexLayout, nullptr, &cubeIndexes, "Resources/Textures/cubeTexture.png");
+    // Object floor(floorVertexArray, floorVertexLayout, &floorIndexes, &getFloorVertexInstances());
+    Object cube(cubeVertexArray, cubeVertexLayout, &cubeIndexes, nullptr, cubeMapFaces);
 
     while (!glfwWindowShouldClose(GameManager::getWindow())) {
         GameManager::startFrame();
 
-        floor.draw(floorShaderProgram, GameManager::getCamera(), GameManager::getDeltaTime());
+        // floor.draw(floorShaderProgram, GameManager::getCamera(), GameManager::getDeltaTime(), { {-90.0f, 0.0f, 0.0f} });
         cube.draw(cubeShaderProgram, GameManager::getCamera(), GameManager::getDeltaTime());
 
         GameManager::endFrame();
@@ -22,7 +22,7 @@ int main() {
         GameManager::handleKeyboardInputs();
     }
 
-    glDeleteProgram(floorShaderProgram);
+    // glDeleteProgram(floorShaderProgram);
     glDeleteProgram(cubeShaderProgram);
 
     // Shutdown GLFW

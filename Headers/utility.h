@@ -17,8 +17,9 @@
 
 struct Shaders {
     std::string FloorVertexShader;
+    std::string FloorFragmentShader;
     std::string CubeVertexShader;
-    std::string FragmentShader;
+    std::string CubeFragmentShader;
 };
 
 Shaders readShaders(const std::string& file);

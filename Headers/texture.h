@@ -21,3 +21,21 @@ private:
     int height;
     int channels;
 };
+
+class CubeMapTexture {
+public:
+    CubeMapTexture();
+    ~CubeMapTexture();
+
+    unsigned int ID;
+
+    void bind();
+    void unbind();
+
+    void loadTexture(std::vector<std::string> cubemap);
+
+private:
+    int width;
+    int height;
+    int channels;
+};
